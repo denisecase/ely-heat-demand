@@ -14,4 +14,3 @@ README.md
 - [Convert HTML Tabls to TSV](https://wtools.io/paste-code)
 - [Convert TSV to JSON](https://onlinetsvtools.com/convert-tsv-to-json)
 - [Chart.js](https://www.chartjs.org/docs/latest/)
-- [Nice looking](https://codepen.io/rozklad/pen/OOMGza)

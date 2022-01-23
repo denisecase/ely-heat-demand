@@ -1,0 +1,1046 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ely Heat Demand</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"
+    integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body class="has-background-primary	">
+  <main class="container has-text-centered">
+
+    <header>
+      <h1 class="title p-5">Ely Heat Demand</h1>
+      <h2 class="subtitle p-5">72-windchill by hour</h2>
+    </header>
+
+    <article class="has-background-light has-text-primary m-4">
+      <canvas id="chart" width="400" height="400"></canvas>
+    </article>
+
+    <!-- <svg width="960" height="500" class="has-background-light"></svg> -->
+
+    <article class="has-background-light has-text-primary m-4">
+      <table class="table class=" has-background-light has-text-primary m-4">
+        <thead>
+          <tr>
+            <th class="tg-7zrl">Date</th>
+            <th class="tg-7zrl">Time CST</th>
+            <th class="tg-7zrl">Date-Time-CST</th>
+            <th class="tg-8d8j">Wind (mph)</th>
+            <th class="tg-8d8j">Weather</th>
+            <th class="tg-8d8j">Sky</th>
+            <th class="tg-7zrl">Temp (°F)</th>
+            <th class="tg-7zrl">Wind Chill (°F)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tg-7zrl">1/23/2022</td>
+            <td class="tg-7zrl">0:55</td>
+            <td class="tg-7zrl">1/23/22 12:55 AM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-22</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/23/2022</td>
+            <td class="tg-7zrl">0:35</td>
+            <td class="tg-7zrl">1/23/22 12:35 AM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-20</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/23/2022</td>
+            <td class="tg-7zrl">0:15</td>
+            <td class="tg-7zrl">1/23/22 12:15 AM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-20</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">23:56</td>
+            <td class="tg-7zrl">1/22/22 11:56 PM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-18</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">23:35</td>
+            <td class="tg-7zrl">1/22/22 11:35 PM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-17</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">23:15</td>
+            <td class="tg-7zrl">1/22/22 11:15 PM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-15</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">22:55</td>
+            <td class="tg-7zrl">1/22/22 10:55 PM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-17</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">22:35</td>
+            <td class="tg-7zrl">1/22/22 10:35 PM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-17</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">22:15</td>
+            <td class="tg-7zrl">1/22/22 10:15 PM</td>
+            <td class="tg-8d8j">W 3</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-20</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">21:55</td>
+            <td class="tg-7zrl">1/22/22 9:55 PM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-18</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">21:35</td>
+            <td class="tg-7zrl">1/22/22 9:35 PM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-18</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">21:15</td>
+            <td class="tg-7zrl">1/22/22 9:15 PM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-13</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">20:55</td>
+            <td class="tg-7zrl">1/22/22 8:55 PM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-13</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">20:35</td>
+            <td class="tg-7zrl">1/22/22 8:35 PM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-11</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">20:15</td>
+            <td class="tg-7zrl">1/22/22 8:15 PM</td>
+            <td class="tg-8d8j">NW 3</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-13</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">19:55</td>
+            <td class="tg-7zrl">1/22/22 7:55 PM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-17</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">19:35</td>
+            <td class="tg-7zrl">1/22/22 7:35 PM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-15</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">19:15</td>
+            <td class="tg-7zrl">1/22/22 7:15 PM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-9</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">18:55</td>
+            <td class="tg-7zrl">1/22/22 6:55 PM</td>
+            <td class="tg-8d8j">Calm</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-9</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">18:35</td>
+            <td class="tg-7zrl">1/22/22 6:35 PM</td>
+            <td class="tg-8d8j">NW 3</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-6</td>
+            <td class="tg-7zrl">NA</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">18:15</td>
+            <td class="tg-7zrl">1/22/22 6:15 PM</td>
+            <td class="tg-8d8j">NW 5</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-6</td>
+            <td class="tg-7zrl">-18</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">17:55</td>
+            <td class="tg-7zrl">1/22/22 5:55 PM</td>
+            <td class="tg-8d8j">W 5</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-2</td>
+            <td class="tg-7zrl">-13</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">17:35</td>
+            <td class="tg-7zrl">1/22/22 5:35 PM</td>
+            <td class="tg-8d8j">W 5</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-2</td>
+            <td class="tg-7zrl">-13</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">17:15</td>
+            <td class="tg-7zrl">1/22/22 5:15 PM</td>
+            <td class="tg-8d8j">W 6</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">0</td>
+            <td class="tg-7zrl">-12</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">16:55</td>
+            <td class="tg-7zrl">1/22/22 4:55 PM</td>
+            <td class="tg-8d8j">NW 7</td>
+            <td class="tg-8d8j">Partly Cloudy</td>
+            <td class="tg-8d8j">SCT075</td>
+            <td class="tg-7zrl">0</td>
+            <td class="tg-7zrl">-13</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">16:35</td>
+            <td class="tg-7zrl">1/22/22 4:35 PM</td>
+            <td class="tg-8d8j">W 10</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">0</td>
+            <td class="tg-7zrl">-16</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">16:15</td>
+            <td class="tg-7zrl">1/22/22 4:15 PM</td>
+            <td class="tg-8d8j">W 8</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">0</td>
+            <td class="tg-7zrl">-14</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">15:55</td>
+            <td class="tg-7zrl">1/22/22 3:55 PM</td>
+            <td class="tg-8d8j">W 9</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">1</td>
+            <td class="tg-7zrl">-14</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">15:35</td>
+            <td class="tg-7zrl">1/22/22 3:35 PM</td>
+            <td class="tg-8d8j">W 8</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">1</td>
+            <td class="tg-7zrl">-13</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">15:15</td>
+            <td class="tg-7zrl">1/22/22 3:15 PM</td>
+            <td class="tg-8d8j">W 10</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">0</td>
+            <td class="tg-7zrl">-16</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">14:55</td>
+            <td class="tg-7zrl">1/22/22 2:55 PM</td>
+            <td class="tg-8d8j">W 12</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">1</td>
+            <td class="tg-7zrl">-16</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">14:35</td>
+            <td class="tg-7zrl">1/22/22 2:35 PM</td>
+            <td class="tg-8d8j">W 15</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">1</td>
+            <td class="tg-7zrl">-18</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">14:15</td>
+            <td class="tg-7zrl">1/22/22 2:15 PM</td>
+            <td class="tg-8d8j">W 14</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">0</td>
+            <td class="tg-7zrl">-19</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">13:55</td>
+            <td class="tg-7zrl">1/22/22 1:55 PM</td>
+            <td class="tg-8d8j">W 13</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">0</td>
+            <td class="tg-7zrl">-18</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">13:35</td>
+            <td class="tg-7zrl">1/22/22 1:35 PM</td>
+            <td class="tg-8d8j">W 14 G 17</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">0</td>
+            <td class="tg-7zrl">-19</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">13:15</td>
+            <td class="tg-7zrl">1/22/22 1:15 PM</td>
+            <td class="tg-8d8j">W 12 G 17</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">0</td>
+            <td class="tg-7zrl">-17</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">12:55</td>
+            <td class="tg-7zrl">1/22/22 12:55 PM</td>
+            <td class="tg-8d8j">W 13 G 16</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">0</td>
+            <td class="tg-7zrl">-18</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">12:35</td>
+            <td class="tg-7zrl">1/22/22 12:35 PM</td>
+            <td class="tg-8d8j">W 14</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">0</td>
+            <td class="tg-7zrl">-19</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">12:15</td>
+            <td class="tg-7zrl">1/22/22 12:15 PM</td>
+            <td class="tg-8d8j">NW 12 G 17</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-2</td>
+            <td class="tg-7zrl">-20</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">11:55</td>
+            <td class="tg-7zrl">1/22/22 11:55 AM</td>
+            <td class="tg-8d8j">W 12</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-2</td>
+            <td class="tg-7zrl">-20</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">11:35</td>
+            <td class="tg-7zrl">1/22/22 11:35 AM</td>
+            <td class="tg-8d8j">W 14</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-2</td>
+            <td class="tg-7zrl">-21</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">11:15</td>
+            <td class="tg-7zrl">1/22/22 11:15 AM</td>
+            <td class="tg-8d8j">W 13</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-2</td>
+            <td class="tg-7zrl">-21</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">10:55</td>
+            <td class="tg-7zrl">1/22/22 10:55 AM</td>
+            <td class="tg-8d8j">NW 15 G 22</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-4</td>
+            <td class="tg-7zrl">-25</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">10:35</td>
+            <td class="tg-7zrl">1/22/22 10:35 AM</td>
+            <td class="tg-8d8j">NW 13 G 20</td>
+            <td class="tg-8d8j">Partly Cloudy</td>
+            <td class="tg-8d8j">SCT021</td>
+            <td class="tg-7zrl">-4</td>
+            <td class="tg-7zrl">-23</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">10:15</td>
+            <td class="tg-7zrl">1/22/22 10:15 AM</td>
+            <td class="tg-8d8j">W 13 G 17</td>
+            <td class="tg-8d8j">Partly Cloudy</td>
+            <td class="tg-8d8j">SCT021</td>
+            <td class="tg-7zrl">-4</td>
+            <td class="tg-7zrl">-23</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">9:55</td>
+            <td class="tg-7zrl">1/22/22 9:55 AM</td>
+            <td class="tg-8d8j">NW 14 G 20</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-6</td>
+            <td class="tg-7zrl">-26</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">9:35</td>
+            <td class="tg-7zrl">1/22/22 9:35 AM</td>
+            <td class="tg-8d8j">NW 12 G 21</td>
+            <td class="tg-8d8j">Partly Cloudy</td>
+            <td class="tg-8d8j">SCT022</td>
+            <td class="tg-7zrl">-6</td>
+            <td class="tg-7zrl">-25</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">9:15</td>
+            <td class="tg-7zrl">1/22/22 9:15 AM</td>
+            <td class="tg-8d8j">NW 17 G 24</td>
+            <td class="tg-8d8j">Partly Cloudy with Haze</td>
+            <td class="tg-8d8j">SCT022</td>
+            <td class="tg-7zrl">-6</td>
+            <td class="tg-7zrl">-28</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">8:55</td>
+            <td class="tg-7zrl">1/22/22 8:55 AM</td>
+            <td class="tg-8d8j">W 15</td>
+            <td class="tg-8d8j">Fair</td>
+            <td class="tg-8d8j">CLR</td>
+            <td class="tg-7zrl">-6</td>
+            <td class="tg-7zrl">-27</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">8:35</td>
+            <td class="tg-7zrl">1/22/22 8:35 AM</td>
+            <td class="tg-8d8j">W 12</td>
+            <td class="tg-8d8j">Partly Cloudy</td>
+            <td class="tg-8d8j">SCT020 SCT026</td>
+            <td class="tg-7zrl">-6</td>
+            <td class="tg-7zrl">-25</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">8:15</td>
+            <td class="tg-7zrl">1/22/22 8:15 AM</td>
+            <td class="tg-8d8j">W 15 G 23</td>
+            <td class="tg-8d8j">Mostly Cloudy</td>
+            <td class="tg-8d8j">BKN026</td>
+            <td class="tg-7zrl">-6</td>
+            <td class="tg-7zrl">-27</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">7:55</td>
+            <td class="tg-7zrl">1/22/22 7:55 AM</td>
+            <td class="tg-8d8j">NW 10 G 21</td>
+            <td class="tg-8d8j">Overcast with Haze</td>
+            <td class="tg-8d8j">OVC024</td>
+            <td class="tg-7zrl">-4</td>
+            <td class="tg-7zrl">-21</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">7:35</td>
+            <td class="tg-7zrl">1/22/22 7:35 AM</td>
+            <td class="tg-8d8j">NW 17 G 30</td>
+            <td class="tg-8d8j">Overcast with Haze</td>
+            <td class="tg-8d8j">OVC022</td>
+            <td class="tg-7zrl">-4</td>
+            <td class="tg-7zrl">-26</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">7:15</td>
+            <td class="tg-7zrl">1/22/22 7:15 AM</td>
+            <td class="tg-8d8j">W 13 G 22</td>
+            <td class="tg-8d8j">Overcast</td>
+            <td class="tg-8d8j">OVC022</td>
+            <td class="tg-7zrl">-2</td>
+            <td class="tg-7zrl">-21</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">6:55</td>
+            <td class="tg-7zrl">1/22/22 6:55 AM</td>
+            <td class="tg-8d8j">W 8</td>
+            <td class="tg-8d8j">Overcast with Haze</td>
+            <td class="tg-8d8j">OVC022</td>
+            <td class="tg-7zrl">0</td>
+            <td class="tg-7zrl">-14</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">6:35</td>
+            <td class="tg-7zrl">1/22/22 6:35 AM</td>
+            <td class="tg-8d8j">NW 10 G 16</td>
+            <td class="tg-8d8j">Overcast</td>
+            <td class="tg-8d8j">OVC022</td>
+            <td class="tg-7zrl">0</td>
+            <td class="tg-7zrl">-16</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">6:15</td>
+            <td class="tg-7zrl">1/22/22 6:15 AM</td>
+            <td class="tg-8d8j">NW 12 G 23</td>
+            <td class="tg-8d8j">Overcast</td>
+            <td class="tg-8d8j">BKN024 OVC029</td>
+            <td class="tg-7zrl">0</td>
+            <td class="tg-7zrl">-17</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">5:55</td>
+            <td class="tg-7zrl">1/22/22 5:55 AM</td>
+            <td class="tg-8d8j">NW 13 G 25</td>
+            <td class="tg-8d8j">Overcast</td>
+            <td class="tg-8d8j">OVC029</td>
+            <td class="tg-7zrl">0</td>
+            <td class="tg-7zrl">-18</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">5:35</td>
+            <td class="tg-7zrl">1/22/22 5:35 AM</td>
+            <td class="tg-8d8j">NW 15 G 28</td>
+            <td class="tg-8d8j">Overcast</td>
+            <td class="tg-8d8j">BKN025 OVC030</td>
+            <td class="tg-7zrl">1</td>
+            <td class="tg-7zrl">-18</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">5:15</td>
+            <td class="tg-7zrl">1/22/22 5:15 AM</td>
+            <td class="tg-8d8j">NW 21 G 26</td>
+            <td class="tg-8d8j">Overcast with Haze and Breezy</td>
+            <td class="tg-8d8j">BKN023 OVC033</td>
+            <td class="tg-7zrl">1</td>
+            <td class="tg-7zrl">-21</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">4:55</td>
+            <td class="tg-7zrl">1/22/22 4:55 AM</td>
+            <td class="tg-8d8j">NW 21 G 26</td>
+            <td class="tg-8d8j">Overcast with Haze and Breezy</td>
+            <td class="tg-8d8j">OVC031</td>
+            <td class="tg-7zrl">3</td>
+            <td class="tg-7zrl">-18</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">4:35</td>
+            <td class="tg-7zrl">1/22/22 4:35 AM</td>
+            <td class="tg-8d8j">NW 18 G 30</td>
+            <td class="tg-8d8j">Overcast with Haze</td>
+            <td class="tg-8d8j">SCT004 SCT019 OVC031</td>
+            <td class="tg-7zrl">3</td>
+            <td class="tg-7zrl">-17</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">4:15</td>
+            <td class="tg-7zrl">1/22/22 4:15 AM</td>
+            <td class="tg-8d8j">NW 14 G 20</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">SCT004 SCT019 OVC031</td>
+            <td class="tg-7zrl">7</td>
+            <td class="tg-7zrl">-10</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">3:55</td>
+            <td class="tg-7zrl">1/22/22 3:55 AM</td>
+            <td class="tg-8d8j">NW 14 G 21</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">SCT004 BKN028 OVC033</td>
+            <td class="tg-7zrl">7</td>
+            <td class="tg-7zrl">-10</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">3:35</td>
+            <td class="tg-7zrl">1/22/22 3:35 AM</td>
+            <td class="tg-8d8j">W 18 G 22</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">BKN019 OVC023</td>
+            <td class="tg-7zrl">7</td>
+            <td class="tg-7zrl">-12</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">3:15</td>
+            <td class="tg-7zrl">1/22/22 3:15 AM</td>
+            <td class="tg-8d8j">NW 14 G 20</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">SCT003 BKN020 OVC026</td>
+            <td class="tg-7zrl">9</td>
+            <td class="tg-7zrl">-7</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">2:55</td>
+            <td class="tg-7zrl">1/22/22 2:55 AM</td>
+            <td class="tg-8d8j">NW 16 G 26</td>
+            <td class="tg-8d8j">Snow</td>
+            <td class="tg-8d8j">BKN003 BKN013 OVC020</td>
+            <td class="tg-7zrl">10</td>
+            <td class="tg-7zrl">-7</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">2:35</td>
+            <td class="tg-7zrl">1/22/22 2:35 AM</td>
+            <td class="tg-8d8j">NW 15 G 23</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">SCT026 OVC038</td>
+            <td class="tg-7zrl">12</td>
+            <td class="tg-7zrl">-4</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">2:15</td>
+            <td class="tg-7zrl">1/22/22 2:15 AM</td>
+            <td class="tg-8d8j">NW 23 G 30</td>
+            <td class="tg-8d8j">Light Snow and Breezy</td>
+            <td class="tg-8d8j">SCT020 BKN028 OVC040</td>
+            <td class="tg-7zrl">14</td>
+            <td class="tg-7zrl">-5</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">1:55</td>
+            <td class="tg-7zrl">1/22/22 1:55 AM</td>
+            <td class="tg-8d8j">W 12 G 17</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">SCT020 BKN030 OVC050</td>
+            <td class="tg-7zrl">16</td>
+            <td class="tg-7zrl">3</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">1:35</td>
+            <td class="tg-7zrl">1/22/22 1:35 AM</td>
+            <td class="tg-8d8j">W 8</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">SCT022 BKN029 OVC050</td>
+            <td class="tg-7zrl">14</td>
+            <td class="tg-7zrl">3</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">1:15</td>
+            <td class="tg-7zrl">1/22/22 1:15 AM</td>
+            <td class="tg-8d8j">W 8</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">BKN050 OVC055</td>
+            <td class="tg-7zrl">14</td>
+            <td class="tg-7zrl">3</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">0:55</td>
+            <td class="tg-7zrl">1/22/22 12:55 AM</td>
+            <td class="tg-8d8j">W 7</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">SCT024 OVC050</td>
+            <td class="tg-7zrl">14</td>
+            <td class="tg-7zrl">4</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">0:35</td>
+            <td class="tg-7zrl">1/22/22 12:35 AM</td>
+            <td class="tg-8d8j">W 9</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">SCT010 SCT024 OVC050</td>
+            <td class="tg-7zrl">14</td>
+            <td class="tg-7zrl">2</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/22/2022</td>
+            <td class="tg-7zrl">0:15</td>
+            <td class="tg-7zrl">1/22/22 12:15 AM</td>
+            <td class="tg-8d8j">SW 6</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">BKN010 OVC017</td>
+            <td class="tg-7zrl">14</td>
+            <td class="tg-7zrl">5</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">23:55</td>
+            <td class="tg-7zrl">1/21/22 11:55 PM</td>
+            <td class="tg-8d8j">SW 6</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">BKN010 BKN014 OVC018</td>
+            <td class="tg-7zrl">14</td>
+            <td class="tg-7zrl">5</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">23:35</td>
+            <td class="tg-7zrl">1/21/22 11:35 PM</td>
+            <td class="tg-8d8j">SW 7</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">BKN004 BKN010 OVC019</td>
+            <td class="tg-7zrl">14</td>
+            <td class="tg-7zrl">4</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">23:15</td>
+            <td class="tg-7zrl">1/21/22 11:15 PM</td>
+            <td class="tg-8d8j">SW 8</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">OVC004</td>
+            <td class="tg-7zrl">14</td>
+            <td class="tg-7zrl">3</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">22:55</td>
+            <td class="tg-7zrl">1/21/22 10:55 PM</td>
+            <td class="tg-8d8j">SW 10 G 18</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">BKN006 OVC010</td>
+            <td class="tg-7zrl">14</td>
+            <td class="tg-7zrl">1</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">22:35</td>
+            <td class="tg-7zrl">1/21/22 10:35 PM</td>
+            <td class="tg-8d8j">SW 9 G 18</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">SCT006 OVC014</td>
+            <td class="tg-7zrl">14</td>
+            <td class="tg-7zrl">2</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">22:15</td>
+            <td class="tg-7zrl">1/21/22 10:15 PM</td>
+            <td class="tg-8d8j">SW 12 G 17</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">SCT006 OVC012</td>
+            <td class="tg-7zrl">14</td>
+            <td class="tg-7zrl">0</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">21:55</td>
+            <td class="tg-7zrl">1/21/22 9:55 PM</td>
+            <td class="tg-8d8j">SW 13 G 16</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">OVC012</td>
+            <td class="tg-7zrl">12</td>
+            <td class="tg-7zrl">-3</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">21:35</td>
+            <td class="tg-7zrl">1/21/22 9:35 PM</td>
+            <td class="tg-8d8j">SW 12 G 17</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">OVC012</td>
+            <td class="tg-7zrl">12</td>
+            <td class="tg-7zrl">-2</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">21:15</td>
+            <td class="tg-7zrl">1/21/22 9:15 PM</td>
+            <td class="tg-8d8j">SW 10 G 20</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">OVC014</td>
+            <td class="tg-7zrl">12</td>
+            <td class="tg-7zrl">-1</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">20:55</td>
+            <td class="tg-7zrl">1/21/22 8:55 PM</td>
+            <td class="tg-8d8j">SW 12 G 18</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">OVC014</td>
+            <td class="tg-7zrl">12</td>
+            <td class="tg-7zrl">-2</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">20:35</td>
+            <td class="tg-7zrl">1/21/22 8:35 PM</td>
+            <td class="tg-8d8j">SW 12 G 18</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">OVC016</td>
+            <td class="tg-7zrl">12</td>
+            <td class="tg-7zrl">-2</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">20:15</td>
+            <td class="tg-7zrl">1/21/22 8:15 PM</td>
+            <td class="tg-8d8j">SW 13 G 17</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">OVC016</td>
+            <td class="tg-7zrl">12</td>
+            <td class="tg-7zrl">-3</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">19:55</td>
+            <td class="tg-7zrl">1/21/22 7:55 PM</td>
+            <td class="tg-8d8j">SW 12 G 21</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">OVC020</td>
+            <td class="tg-7zrl">10</td>
+            <td class="tg-7zrl">-5</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">19:35</td>
+            <td class="tg-7zrl">1/21/22 7:35 PM</td>
+            <td class="tg-8d8j">SW 14 G 22</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">OVC020</td>
+            <td class="tg-7zrl">10</td>
+            <td class="tg-7zrl">-6</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">19:15</td>
+            <td class="tg-7zrl">1/21/22 7:15 PM</td>
+            <td class="tg-8d8j">SW 14 G 24</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">OVC020</td>
+            <td class="tg-7zrl">10</td>
+            <td class="tg-7zrl">-6</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">18:55</td>
+            <td class="tg-7zrl">1/21/22 6:55 PM</td>
+            <td class="tg-8d8j">SW 13 G 25</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">OVC020</td>
+            <td class="tg-7zrl">10</td>
+            <td class="tg-7zrl">-5</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">18:35</td>
+            <td class="tg-7zrl">1/21/22 6:35 PM</td>
+            <td class="tg-8d8j">SW 17 G 22</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">OVC022</td>
+            <td class="tg-7zrl">10</td>
+            <td class="tg-7zrl">-8</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">18:15</td>
+            <td class="tg-7zrl">1/21/22 6:15 PM</td>
+            <td class="tg-8d8j">SW 14 G 22</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">OVC022</td>
+            <td class="tg-7zrl">10</td>
+            <td class="tg-7zrl">-6</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">17:55</td>
+            <td class="tg-7zrl">1/21/22 5:55 PM</td>
+            <td class="tg-8d8j">SW 16 G 24</td>
+            <td class="tg-8d8j">Overcast</td>
+            <td class="tg-8d8j">BKN024 OVC029</td>
+            <td class="tg-7zrl">10</td>
+            <td class="tg-7zrl">-7</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">17:35</td>
+            <td class="tg-7zrl">1/21/22 5:35 PM</td>
+            <td class="tg-8d8j">SW 17 G 26</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">SCT004 BKN008 OVC029</td>
+            <td class="tg-7zrl">10</td>
+            <td class="tg-7zrl">-8</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">17:15</td>
+            <td class="tg-7zrl">1/21/22 5:15 PM</td>
+            <td class="tg-8d8j">SW 20 G 28</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">OVC004</td>
+            <td class="tg-7zrl">12</td>
+            <td class="tg-7zrl">-6</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">16:55</td>
+            <td class="tg-7zrl">1/21/22 4:55 PM</td>
+            <td class="tg-8d8j">SW 18 G 33</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">NA</td>
+            <td class="tg-7zrl">12</td>
+            <td class="tg-7zrl">-5</td>
+          </tr>
+          <tr>
+            <td class="tg-7zrl">1/21/2022</td>
+            <td class="tg-7zrl">16:49</td>
+            <td class="tg-7zrl">1/21/22 4:49 PM</td>
+            <td class="tg-8d8j">SW 20 G 33</td>
+            <td class="tg-8d8j">Light Snow</td>
+            <td class="tg-8d8j">NA</td>
+            <td class="tg-7zrl">12</td>
+            <td class="tg-7zrl">-6</td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        Site | Source | Created by <a href="https://jgthms.com">Denise Case</a>.
+      </p>
+
+      <p>Source code
+        <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. Website content
+        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0 license</a>.
+      </p>
+    </div>
+  </footer>
+
+  <script src="main.js" type="module"></script>
+</body>
+
+</html>

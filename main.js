@@ -2,13 +2,24 @@
 
 // import default object with a local camelCase name
 import arrData from './data/dataWC.js';
+
 const arrWC = [...arrData].reverse();
 const arrHD = arrWC.map(pt => calculateHeatDemandEntry(pt));
+const arrHDC = arrHD.map((pt, i) => ({
+    x: pt.x,
+    y: arrHD.slice(0, i + 1).map(({ y }) => y).reduce((acc, curr) => acc + curr)
+}));
 
 function calculateHeatDemandEntry(item) {
+    // x is the date-time and y is the windchill in deg F
     const o = {};
     o.x = item.x;
-    o.y = 72 - item.y;
+    const d = new Date(o.x);
+    const hour = d.getHours();
+    const intDayStart = 7; // 7am
+    const intDayEnd = 22;  // 10pm
+    const tWarm = (hour <= intDayStart || hour >= intDayEnd) ? 68 : 72;
+    o.y = tWarm - item.y;
     return o;
 }
 
@@ -17,34 +28,44 @@ var options = {
     data: {
         datasets: [{
             label: 'Wind Chill',
+            yAxisID: 'F',
             data: arrWC,
-            backgroundColor: 'red'
+            backgroundColor: 'red',
+            tension: 0.6
         },
         {
             label: 'Demand',
-            steppedLine: 'before',
             data: arrHD,
-            backgroundColor: 'limegreen'
+            yAxisID: 'F',
+            backgroundColor: 'limegreen',
+            tension: 0.6
+        },
+        {
+            label: 'Cumulative',
+            yAxisID: 'Cumulative',
+            data: arrHDC,
+            backgroundColor: 'lightgrey',
+            fill: 'origin',
+            borderColor: 'grey',
+            tension: 0.1
         }
         ]
     },
     options: {
         scales: {
-            xAxes: [{
-                type: 'time',
-                time: {
-                    unit: 'hour',
-                    round: true,
-                },
-                displayFormats: {
-                    day: 'MMM-DD'
-                }
+            xAxis: [{
+                type: 'time'
+
             }],
-            yAxes: [{
+            yAxis: [{
+                id: 'F',
                 type: 'linear',
-                label: 'F',
-                suggestedMin: -45,
-                suggestedMax: 20
+                position: 'left'
+            },
+            {
+                id: 'Cumulative',
+                type: 'linear',
+                position: 'right'
             }]
         }
     }
